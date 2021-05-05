@@ -4,8 +4,8 @@ library(shiny)
 ui <- fluidPage(
 
   # App title ----
-  #titlePanel( "Hello from token: 123"),
-  titlePanel( paste0("My token is: ", Sys.getenv('DASHBOARDS_KOBO_TOKEN'))),
+  titlePanel( "Hello from token: 123"),
+  #titlePanel( paste0("My token is: ", Sys.getenv('DASHBOARDS_KOBO_TOKEN'))),
 
   # Sidebar layout with input and output definitions ----
   sidebarLayout(
