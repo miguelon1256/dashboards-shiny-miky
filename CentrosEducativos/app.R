@@ -1,4 +1,3 @@
-
 library(shiny)
 library("httr")
 library("jsonlite")
@@ -37,7 +36,7 @@ body <- dashboardBody(
                 fluidRow(box(title="Principal fuente de agua para consumo humano en la escuela ",plotOutput("TestPlot"),width=8), 
                          infoBoxOutput("countbox")
                          ), 
-                fluidRow(box(title="Principal fuente de agua de acuerdo a categorías JMP ", plotOutput("Plot_mej"),width=6))
+                fluidRow(box(title="Principal fuente de agua de acuerdo a categorÃ­as JMP ", plotOutput("Plot_mej"),width=6))
                 ),
         tabItem(tabName="map", column(leafletOutput("mymap",height="90vh"), width=12))
         )
@@ -126,8 +125,8 @@ server <- function(input, output) {
     
     ##Some data cleaning. 
     raw_data <- raw_data %>% mutate(fuente=recode(fuente,
-                                                  "caneria_dentro" = "Cañería de red dentro del inmueble", 
-                                                  "caneria_fuera" = "Cañería de red fuera del inmueble", 
+                                                  "caneria_dentro" = "CaÃ±erÃ­a de red dentro del inmueble", 
+                                                  "caneria_fuera" = "CaÃ±erÃ­a de red fuera del inmueble", 
                                                   "pozo_perforado" = "Pozo perforado o entubado, con bomba", 
                                                   "pozo_cubierto" = "Pozo excavado cubierto", 
                                                   "pozo_no_cubierto" = "Pozo excavado no cubierto", 
@@ -140,8 +139,8 @@ server <- function(input, output) {
                                                   "sin_fuente"="Sin fuente de agua"))
     
     ##fuente mejorada
-    raw_data <- raw_data %>% mutate(f_mejorada = recode (fuente,"Cañería de red dentro del inmueble"="Mejorada",
-                                                         "Cañería de red fuera del inmueble"="Mejorada", 
+    raw_data <- raw_data %>% mutate(f_mejorada = recode (fuente,"CaÃ±erÃ­a de red dentro del inmueble"="Mejorada",
+                                                         "CaÃ±erÃ­a de red fuera del inmueble"="Mejorada", 
                                                          "Pozo perforado o entubado, con bomba"="Mejorada", 
                                                          "Pozo excavado cubierto"="Mejorada", 
                                                          "Manantial o vertiente protegida"="Mejorada", 
@@ -165,7 +164,7 @@ server <- function(input, output) {
     ##box countbox
     data3 <- reactive(total[1,1])
     output$countbox <- renderInfoBox({
-        infoBox("Número total de entrevistas aprovadas",data3(),icon=icon("list"),color="purple")
+        infoBox("NÃºmero total de entrevistas aprovadas",data3(),icon=icon("list"),color="purple")
     })
     
     
@@ -200,12 +199,3 @@ server <- function(input, output) {
 }
 
 shinyApp(ui, server)
-
-
-
-
-
-
-
-
-
