@@ -21,9 +21,9 @@ library(ggplot2)
 
 ##
 ##
-## 1. Dashboard actualizado para unidades educativas.  
+## 1. Este es el primer dashboard para un analisis de datos de **centros de salud** en Villa Serrano y Padilla. 
 ##
-##  Fecha: 24.08.2021
+##
 ##
 
 
@@ -47,37 +47,37 @@ body <- dashboardBody(
     ##Tab agua
     tabItem(tabName = "agua",
             fluidRow(
-                    box(title="Servicios de agua en la unidad educativa.",plotOutput("plot_agua_1"),width=8),
+                    box(title="Servicios de agua en el centro de salud",plotOutput("plot_agua_1"),width=8),
                     infoBoxOutput("countbox"), 
                     box(title="Definiciones de escaleras de servicio del JMP", 
-                        "Servicio básico: en el momento de la encuesta, la escuela dispone de agua para consumo procedente de una fuente mejorada.",br(), 
-                        "Servicio limitado: la escuela dispone de una fuente de agua mejorada, pero en el momento de la encuesta no hay agua.", br(), 
-                        "Sin servicio: la escuela no dispone de una fuente de agua o dispone de agua para consumo de una fuente no mejorada.", width=4)
-                        ),
+                        "Servicio básico: Existe una fuente mejorada en el centro de salud que tenga agua disponible y que se encuentre dentro del perímetro o patio del centro de salud.",br(), 
+                        "Servicio limitado: Existe una fuente mejorada a menos de 500 metros de distancia del centro de salud.", br(), 
+                        "Sin servicio: Existe agua de una fuente mejorada a más de 500 metros, o la fuente no es mejorada, o el agua no esta disponible.", width=4)
+                    ),
             fluidRow(
                     box(title="Servicios en Villa Serrano", plotOutput("plot_agua_VS"),width=6),
                     box(title="Servicios en Padilla", plotOutput("plot_agua_P"),width=6) 
                     )
             ),
     tabItem(tabName = "san",
-             fluidRow(box(title="Servicios de en la unidad educativa",plotOutput("plot_san_1"),width=8),
+             fluidRow(box(title="Servicios de saneamiento en el centro de salud",plotOutput("plot_san_1"),width=8),
                       box(title="Definiciones de escaleras de servicio del JMP", 
-                          "Servicio básico: en el momento de la encuesta, la escuela dispone de instalaciones de saneamiento mejoradas, separadas por sexo y utilizables (disponibles, en funcionamiento y privadas.",br(), 
-                          "Servicio limitado: en el momento de la encuesta, la escuela dispone de instalaciones de saneamientos mejoradas, pero no están separadas por sexo o no son utilizables.", br(), 
-                          "Sin servicio: la escuela no dispone de instalaciones de saneamiento o dispone de instalaciones de saneamiento no mejoradas.", width=4)
-                        ),
+                          "Servicio básico: Existe instalación mejorada utilizable (disponible, funcionamiento, privada) con por lo menos una instalación para el personal médico, una en un espacio separado por sexo, y una para pacientes con limitaciones de movilidad.",br(), 
+                          "Servicio limitado: Existe por lo menos una instalación de servicio de saneamiento mejorada.", br(), 
+                          "Sin servicio: Instalaciones son no mejoradas o no existen letrinas o inodoros en el centro de salud.", width=4)
+                      ),
              fluidRow(
                       box(title="Servicios en Villa Serrano", plotOutput("plot_san_VS"),width=6),
                       box(title="Servicios en Padilla", plotOutput("plot_san_P"),width=6)
                       )
             ),
     tabItem(tabName = "hig",
-            fluidRow(box(title="Servicios de lavado de manos en la unidad educativa",plotOutput("plot_hig_1"),width=8),
+            fluidRow(box(title="Servicios de lavado de manos en el centro de salud",plotOutput("plot_hig_1"),width=8),
                      box(title="Definiciones de escaleras de servicio del JMP", 
-                         "Servicio básico: en el momento de la encuesta, la escuela dispone de instalaciones para el lavado de manos con agua y jabón.",br(), 
-                         "Servicio limitado: la escuela cuenta con instalaciones para el lavado de manos que, en el momento de la encuesta, disponen de agua, pero no de jabón.", br(), 
-                         "Sin servicio: a escuela no dispone de agua o de instalaciones para el lavado de manos.", width=4)
-                         ),
+                         "Servicio básico: Existe por lo menos una instalación de lavado de manos que funcione y tenga agua, jabón y/o desinfectante disponible en puntos de atención a pacientes y cerca de un baño.",br(), 
+                         "Servicio limitado: Existe una instalación de lavado de manos que funcione y tenga agua, jabón y/o desinfectante en un punto de atención a pacientes o cerca de un baño, pero no en ambos lugares.", br(), 
+                         "Sin servicio: No existen instalaciones de lavado de manos que funcionen en el centro de salud.", width=4)
+                     ),
             fluidRow(box(title="Servicios en Villa Serrano", plotOutput("plot_hig_VS"),width=6),
                      box(title="Servicios en Padilla", plotOutput("plot_hig_P"),width=6)
                      )
@@ -88,7 +88,7 @@ body <- dashboardBody(
 
 
 ui <- dashboardPage(
-  dashboardHeader(title = "PA2030: Unidades Educativas",titleWidth = 400),
+  dashboardHeader(title = "PA2030: Centros de Salud",titleWidth = 400),
   sidebar,
   body
 )
@@ -115,8 +115,8 @@ ui <- dashboardPage(
   
   ##get form ID form website - this is the new form_id
   ##data from unidades educativas
-  form_id <- "aPWG6ZEXC2sosk2Ke6qECD"
-  formid  <- "aPWG6ZEXC2sosk2Ke6qECD"
+  form_id <- "aJ2jCa8rqVegFa8iygsEcC"
+  formid  <- "aJ2jCa8rqVegFa8iygsEcC"
   
   url_form <- paste0(api, "/assets/", form_id, "/")
   kobo_token <- Sys.getenv('DASHBOARDS_KOBO_TOKEN')
@@ -148,7 +148,7 @@ ui <- dashboardPage(
   
   ##Looked at download_forms_all_old manually and check the right form
   ##using the old ID get data from old API
-  url_data <- paste0(old_api, "/api/v1/data/",26, ".csv")
+  url_data <- paste0(old_api, "/api/v1/data/",10, ".csv")
   
   raw_data <- GET(url_data, add_headers(Authorization = paste("Token ", kobo_token)), progress())
   
@@ -215,17 +215,15 @@ ui <- dashboardPage(
 
 
   ##Indicador principal:
-  ##Servicio basico: en el momento de la encuesta, la escuela dispone de agua para consumo procedente de una fuente mejorada
-  ##Servicio limitado: la escuela dispone de una fuente de agua mejorada, pero en el momento de la encuesta no hay agua
-  ##Sin servicio:  la escuela no dispone de una fuente de agua o dispone de agua para consumo de una fuente no mejorada
+  ##Con agua disponible de una fuente mejorada ubicada en el perímetro de la del centro de salud
 
   raw_data <- raw_data %>%
-              mutate(ind_basico=case_when(f_mejorada == "Mejorada" & dispo_fuente == "si"  ~ "si",))
+              mutate(ind_basico=case_when(f_mejorada == "Mejorada" & (is.na(ubi_fuente) | ubi_fuente == "perimetro") & dispo == "si"  ~ "si",))
   raw_data$ind_basico[is.na(raw_data$ind_basico)] <- "no"
 
   raw_data <- raw_data %>%
-    mutate(servicio_agua=case_when(f_mejorada == "Mejorada" & dispo_fuente == "si"  ~ "Servicio básico",
-                          f_mejorada == "Mejorada" ~ "Servicio limitado"))
+    mutate(servicio_agua=case_when(f_mejorada == "Mejorada" & (is.na(ubi_fuente) | ubi_fuente == "perimetro") & dispo == "si"  ~ "Servicio básico",
+                          f_mejorada == "Mejorada" & (ubi_fuente == "500m") ~ "Servicio limitado"))
   raw_data$servicio_agua[is.na(raw_data$servicio_agua)] <- "Sin servicio"
 
   
@@ -238,32 +236,32 @@ ui <- dashboardPage(
   ## - letrina con piso, compostaje
   
   raw_data <- raw_data %>%
-            mutate(i_mejorado=case_when((letrina == "inodoro" & (desague=="alcantarillado" | desague=="septica")) |
-                                          letrina == "letrina_piso" | letrina == "compostaje" ~ "Mejorada"))
+            mutate(i_mejorado=case_when((inodoros == "inodoro" & (ino_desague=="alcantarillado" | ino_desague=="septica")) |
+                                          inodoros == "letrina_piso" | inodoros == "compostaje" ~ "Mejorada"))
   raw_data$i_mejorado[is.na(raw_data$i_mejorado)] <- "No Mejorada"
   
   ##Indicador principal
-  ## Servicio basico: en el momento de la encuesta, la escuela dispone de instalaciones de saneamiento mejoradas, separadas por sexo y utilizables (disponibles, en funcionamiento y privadas)
-  ## Servicio limitado:  en el momento de la encuesta, la escuela dispone de instalaciones de saneamientos mejoradas, pero no están separadas por sexo o no son utilizables 
-  ## Sin servicio:  la escuela no dispone de instalaciones de saneamiento o dispone de instalaciones de saneamiento no mejoradas
-
+  ## Servicio Basico
+  ##
+  ## Instalación mejorada con por lo menos un bano dedicado al uso exclusivo del personal, por lo menos un bano separado por sexo, y por lo menos un bano accesible para personas con movilidad limitada
+  
   raw_data <- raw_data %>%
-    mutate(servicio_saneamiento = case_when(i_mejorado == "Mejorada" & letrina_sexo == "si" & letrina_utilizable >= 1  ~ "Servicio básico",
+    mutate(servicio_saneamiento = case_when(i_mejorado == "Mejorada" & ino_med == "si" & ino_sexo == "si" & ino_mov == "si" & ino_util == "si" ~ "Servicio básico",
                                             i_mejorado == "Mejorada" ~ "Servicio limitado"))
   raw_data$servicio_saneamiento[is.na(raw_data$servicio_saneamiento)] <- "Sin servicio"
 
   #3.3 Lavado de manos
 
   ##Indicador principal
-  ## Servicio Basico: en el momento de la encuesta, la escuela dispone de instalaciones para el lavado de manos con agua y jabón
-  ## Servicio Limitado: la escuela cuenta con instalaciones para el lavado de manos que, en el momento de la encuesta, disponen de agua, pero no de jabón
-  ## Sin Servicio: a escuela no dispone de agua o de instalaciones para el lavado de manos 
+  ## Servicio Basico
+  ## Existen instalaciones de lavado de manos en funcionamiento en sala de atención de pacientes y cerca del bano
 
   raw_data <- raw_data %>%
-    mutate(servicio_lavado = case_when(instalacion_lavado == "si" & instalacion_jabon == "si" & instalacion_agua == "si" ~ "Servicio básico",
-                                       (instalacion_lavado == "si" & instalacion_agua == "si" ~ "Servicio limitado")))
+    mutate(servicio_lavado = case_when(manos_agua == "si" & (manos_jabon == "si"| manos_desinfect == "si") &
+                                         manos_pac_agua == "si" & (manos_pac_jab_n == "si" | manos_pac_desinf == "si") ~ "Servicio básico",
+                                       (manos_agua == "si" & (manos_jabon == "si"| manos_desinfect == "si")) |
+                                         (manos_pac_agua == "si" & (manos_pac_jab_n == "si" | manos_pac_desinf == "si")) ~ "Servicio limitado"))
   raw_data$servicio_lavado[is.na(raw_data$servicio_lavado)] <- "Sin servicio"
-  
 
 ##----------------------
   ##count total entries
@@ -287,7 +285,7 @@ ui <- dashboardPage(
   )
   ),
   stat = 'count',
-  nudge_y = 1,
+  nudge_y = .5,
   colour = 'black',
   size = 5
   )
@@ -317,7 +315,7 @@ server <- function(input, output) {
   output$plot_agua_1 <- renderPlot({
     ggplot(data2(), aes(x=servicio_agua, fill=servicio_agua)) +
         geom_bar() +
-        labs(title = "Servicio de agua en unidades educativas", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de agua") +
+        labs(title = "Servicio de agua en centros de salud", x = "Escalera de servicio", y="Número de centros",fill="Servicio de agua") +
         scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
         gtext
     })
@@ -326,7 +324,7 @@ server <- function(input, output) {
   output$plot_agua_VS <- renderPlot({
        ggplot(subset(data2(), municipio %in% c("serrano")), aes(x=servicio_agua, fill=servicio_agua)) +
         geom_bar() +
-        labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de agua") +
+        labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de centros",fill="Servicio de agua") +
         scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
         gtext
    })
@@ -334,9 +332,8 @@ server <- function(input, output) {
   output$plot_agua_P <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_agua, fill=servicio_agua)) +
         geom_bar() +
-        labs(title = "Padilla", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de agua") +
-        scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
-        gtext
+        labs(title = "Padilla", x = "Escalera de servicio", y="Número de centros",fill="Servicio de agua") +
+        scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301"))
   })
   
   ##Saneamiento
@@ -344,7 +341,7 @@ server <- function(input, output) {
   output$plot_san_1 <- renderPlot({
     ggplot(data2(), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
       geom_bar() +
-      labs(title = "Servicio de saneamiento en unidades educativas", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de saneamiento") +
+      labs(title = "Servicio de saneamiento en centros de salud", x = "Escalera de servicio", y="Número de centros",fill="Servicio de saneamiento") +
       scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
@@ -352,7 +349,7 @@ server <- function(input, output) {
   output$plot_san_VS <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("serrano")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
       geom_bar() +
-      labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de saneamiento") +
+      labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de centros",fill="Servicio de saneamiento") +
       scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
@@ -360,7 +357,7 @@ server <- function(input, output) {
   output$plot_san_P <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
       geom_bar() +
-      labs(title = "Padilla", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de saneamiento") +
+      labs(title = "Padilla", x = "Escalera de servicio", y="Número de centros",fill="Servicio de saneamiento") +
       scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
       gtext
   })
@@ -371,7 +368,7 @@ server <- function(input, output) {
   output$plot_hig_1 <- renderPlot({
     ggplot(data2(), aes(x=servicio_lavado, fill=servicio_lavado)) +
       geom_bar() +
-      labs(title = "Servicio de lavado de manos en unidades educativas", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de lavado de manos") + 
+      labs(title = "Servicio de lavado de manos en centros de salud", x = "Escalera de servicio", y="Número de centros",fill="Servicio de lavado de manos") + 
       scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
       gtext
   })
@@ -379,15 +376,15 @@ server <- function(input, output) {
   output$plot_hig_VS <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("serrano")), aes(x=servicio_lavado, fill=servicio_lavado)) +
       geom_bar() +
-      labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de lavado de manos") + 
+      labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de centros",fill="Servicio de lavado de manos") + 
       scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
   
   output$plot_hig_P <- renderPlot({
-    ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
+    ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_lavado, fill=servicio_lavado)) +
       geom_bar() +
-      labs(title = "Padilla", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de lavado de manos") + 
+      labs(title = "Padilla", x = "Escalera de servicio", y="Número de centros",fill="Servicio de lavado de manos") + 
       scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
@@ -404,3 +401,140 @@ server <- function(input, output) {
 shinyApp(ui, server)
 
 
+
+
+# ##graphs
+# 
+# ggplot(raw_data) + 
+#   geom_bar(aes(x=servicio_agua,fill=servicio_agua), position = "stack") + 
+#   labs(x = "Centros de salud", y="Numero de respuestas") +
+#   theme(axis.text.x = element_blank())
+# 
+# ggplot(raw_data) + 
+#   geom_bar(aes(x=municipio,fill=servicio_agua), position = "fill") + 
+#   labs(title = "Servicio de agua en centros de salud", x = "Municipios", y="Proporción",fill="Servicio de agua") + 
+#   scale_x_discrete(labels=c("Padilla", "Villa Serrano")) + 
+#   scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Sin servicio" = "#fab301")) + 
+#   scale_y_continuous(breaks=seq(0,1,0.1)) 
+#   
+# ##total
+# 
+# plot <- ggplot(raw_data, aes(x=servicio_agua, fill=servicio_agua)) +
+#   geom_bar() +
+#   las(title = "Servicio de agua en centros de salud", x = "Escalera de servicio", y="Número de centros",fill="Servicio de agua") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) 
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# ##Villa Serrano
+# 
+# plot <- ggplot(subset(raw_data, municipio %in% c("serrano")), aes(x=servicio_agua, fill=servicio_agua)) +
+#   geom_bar() +
+#   labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de centros",fill="Servicio de aguao") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) 
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# ##Padilla
+# 
+# plot <- ggplot(subset(raw_data, municipio %in% c("padilla")), aes(x=servicio_agua, fill=servicio_agua)) +
+#   geom_bar() +
+#   labs(title = "Padilla", x = "Escalera de servicio", y="Número de centros",fill="Servicio de agua") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301"))  
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# 
+# 
+# 
+# 
+# ggplot(raw_data) + 
+#   geom_bar(aes(x=municipio,fill=servicio_saneamiento), position = "fill") + 
+#   labs(title = "Servicio de saneamiento en centros de salud", x = "Municipios", y="Proporción",fill="Servicio de saneamiento") + 
+#   scale_x_discrete(labels=c("Padilla", "Villa Serrano")) + 
+#   scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
+#   scale_y_continuous(breaks=seq(0,1,0.1)) 
+# 
+# 
+# 
+# ##total
+# 
+# plot <- ggplot(raw_data, aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
+#   geom_bar() +
+#   labs(title = "Servicio de saneamiento en centros de salud", x = "Escalera de servicio", y="Número de centros",fill="Servicio de saneamiento") +
+#   scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301"))
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# ##Villa Serrano
+# 
+# plot <- ggplot(subset(raw_data, municipio %in% c("serrano")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
+#   geom_bar() +
+#   labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de centros",fill="Servicio de saneamiento") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) 
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# ##Padilla
+# 
+# plot <- ggplot(subset(raw_data, municipio %in% c("padilla")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
+#   geom_bar() +
+#   labs(title = "Padilla", x = "Escalera de servicio", y="Número de centros",fill="Servicio de saneamiento") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301"))  
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# 
+# 
+# ggplot(raw_data) + 
+#   geom_bar(aes(x=municipio,fill=servicio_lavado), position = "fill") + 
+#   labs(title = "Servicio de lavado de manos en centros de salud", x = "Municipios", y="Proporción",fill="Servicio de lavado de manos") + 
+#   scale_x_discrete(labels=c("Padilla", "Villa Serrano")) + 
+#   scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
+#   scale_y_continuous(labels = scales::percent, breaks = seq(0,1,0.1)) 
+# 
+# 
+# ##total
+# 
+# plot <- ggplot(raw_data, aes(x=servicio_lavado, fill=servicio_lavado)) +
+#         geom_bar() +
+#         labs(title = "Servicio de lavado de manos en centros de salud", x = "Escalera de servicio", y="Número de centros",fill="Servicio de lavado de manos") + 
+#         scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) 
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# ##Villa Serrano
+# 
+# plot <- ggplot(subset(raw_data, municipio %in% c("serrano")), aes(x=servicio_lavado, fill=servicio_lavado)) +
+#   geom_bar() +
+#   labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de centros",fill="Servicio de lavado de manos") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) 
+# 
+# plot <- plot + gtext
+# 
+# plot
+# 
+# ##Padilla
+# 
+# plot <- ggplot(subset(raw_data, municipio %in% c("padilla")), aes(x=servicio_lavado, fill=servicio_lavado)) +
+#   geom_bar() +
+#   labs(title = "Padilla", x = "Escalera de servicio", y="Número de centros",fill="Servicio de lavado de manos") + 
+#   scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) 
+# 
+# plot <- plot + gtext
+# 
+# plot
