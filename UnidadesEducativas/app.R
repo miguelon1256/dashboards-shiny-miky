@@ -47,7 +47,7 @@ body <- dashboardBody(
     ##Tab agua
     tabItem(tabName = "agua",
             fluidRow(
-                    box(title="Servicios de agua en la unidad educativa.",plotOutput("plot_agua_1"),width=8),
+                    box(title="Servicios de agua en la unidad educativa",plotOutput("plot_agua_1"),width=8),
                     infoBoxOutput("countbox"), 
                     box(title="Definiciones de escaleras de servicio del JMP", 
                         "Servicio básico: en el momento de la encuesta, la escuela dispone de agua para consumo procedente de una fuente mejorada.",br(), 
