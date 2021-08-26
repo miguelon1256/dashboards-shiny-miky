@@ -299,7 +299,7 @@ server <- function(input, output) {
   ##box countbox
   data1 <- reactive(total[1,1])
   output$countbox <- renderInfoBox({
-    infoBox("NÃºmero total de respuestas aprobadas",data1(),icon=icon("list"),color="purple")
+    infoBox("Número total de respuestas aprobadas",data1(),icon=icon("list"),color="purple")
   })
   
   ##Infoboxes
@@ -317,7 +317,7 @@ server <- function(input, output) {
   output$plot_agua_1 <- renderPlot({
     ggplot(data2(), aes(x=servicio_agua, fill=servicio_agua)) +
         geom_bar() +
-        labs(title = "Servicio de agua en unidades educativas", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de agua") +
+        labs(title = "Servicio de agua en unidades educativas", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de agua") +
         scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
         gtext
     })
@@ -326,7 +326,7 @@ server <- function(input, output) {
   output$plot_agua_VS <- renderPlot({
        ggplot(subset(data2(), municipio %in% c("serrano")), aes(x=servicio_agua, fill=servicio_agua)) +
         geom_bar() +
-        labs(title = "Villa Serrano", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de agua") +
+        labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de agua") +
         scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
         gtext
    })
@@ -334,7 +334,7 @@ server <- function(input, output) {
   output$plot_agua_P <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_agua, fill=servicio_agua)) +
         geom_bar() +
-        labs(title = "Padilla", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de agua") +
+        labs(title = "Padilla", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de agua") +
         scale_fill_manual(values = c("Servicio básico" = "#6dc4ef", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
         gtext
   })
@@ -344,7 +344,7 @@ server <- function(input, output) {
   output$plot_san_1 <- renderPlot({
     ggplot(data2(), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
       geom_bar() +
-      labs(title = "Servicio de saneamiento en unidades educativas", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de saneamiento") +
+      labs(title = "Servicio de saneamiento en unidades educativas", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de saneamiento") +
       scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
@@ -352,7 +352,7 @@ server <- function(input, output) {
   output$plot_san_VS <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("serrano")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
       geom_bar() +
-      labs(title = "Villa Serrano", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de saneamiento") +
+      labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de saneamiento") +
       scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
@@ -360,7 +360,7 @@ server <- function(input, output) {
   output$plot_san_P <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_saneamiento, fill=servicio_saneamiento)) +
       geom_bar() +
-      labs(title = "Padilla", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de saneamiento") +
+      labs(title = "Padilla", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de saneamiento") +
       scale_fill_manual(values = c("Servicio básico" = "#8bc378", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
       gtext
   })
@@ -372,7 +372,7 @@ server <- function(input, output) {
   output$plot_hig_1 <- renderPlot({
     ggplot(data2(), aes(x=servicio_lavado, fill=servicio_lavado)) +
       geom_bar() +
-      labs(title = "Servicio de lavado de manos en unidades educativas", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de lavado de manos") + 
+      labs(title = "Servicio de lavado de manos en unidades educativas", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de lavado de manos") + 
       scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) + 
       gtext
   })
@@ -380,7 +380,7 @@ server <- function(input, output) {
   output$plot_hig_VS <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("serrano")), aes(x=servicio_lavado, fill=servicio_lavado)) +
       geom_bar() +
-      labs(title = "Villa Serrano", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de lavado de manos") + 
+      labs(title = "Villa Serrano", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de lavado de manos") + 
       scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
@@ -388,7 +388,7 @@ server <- function(input, output) {
   output$plot_hig_P <- renderPlot({
     ggplot(subset(data2(), municipio %in% c("padilla")), aes(x=servicio_lavado, fill=servicio_lavado)) +
       geom_bar() +
-      labs(title = "Padilla", x = "Escalera de servicio", y="NÃºmero de unidades",fill="Servicio de lavado de manos") + 
+      labs(title = "Padilla", x = "Escalera de servicio", y="Número de unidades",fill="Servicio de lavado de manos") + 
       scale_fill_manual(values = c("Servicio básico" = "#802997", "Servicio limitado" = "#fff272", "Sin servicio" = "#fab301")) +
       gtext
   })
