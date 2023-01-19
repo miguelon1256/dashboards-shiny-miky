@@ -109,9 +109,9 @@ ui <- dashboardPage(
 ##1. Download the data-----------------------------------------------------------------------------------------------
   
   ##Define url where our data is
-  api <- "https://kf.nexion-dev.tk"
+  api <- "http://kf.mi-entidad.gob.bo"
   ##the old API is needed for the actual data.
-  old_api <- "https://kc.nexion-dev.tk"
+  old_api <- "http://kc.mi-entidad.gob.bo"
   
   ##get form ID form website - this is the new form_id
   ##data from unidades educativas
