@@ -109,9 +109,9 @@ ui <- dashboardPage(
 ##1. Download the data-----------------------------------------------------------------------------------------------
   
   ##Define url where our data is
-  api <- "http://kf.mi-entidad.gob.bo"
+  api <- "http://kf.mmaya.gob.bo"
   ##the old API is needed for the actual data.
-  old_api <- "http://kc.mi-entidad.gob.bo"
+  old_api <- "http://kc.mmaya.gob.bo"
   
   ##get form ID form website - this is the new form_id
   ##data from unidades educativas
